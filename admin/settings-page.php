@@ -277,7 +277,7 @@ if ( isset( $_GET['chatbot_csv_error'] ) ) {
                             class="regular-text"
                             placeholder="https://calendar.google.com/..."
                         >
-                        <p class="description">Paste your Google Calendar booking link here. When a visitor shows positive interest, the chatbot will suggest booking a meeting.</p>
+                        <p class="description">Paste your meeting booking link here. When a visitor shows positive interest, the chatbot will suggest booking a meeting.</p>
                     </td>
                 </tr>
 

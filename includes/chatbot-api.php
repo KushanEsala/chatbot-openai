@@ -17,11 +17,16 @@ class ChatBot_API {
         $placeholders = array(
             '[meeting link]',
             '[Meeting Booking Link]',
+            '[Insert Google meeting booking link]',
+            'Insert Google meeting booking link',
+            '[Insert meeting booking link]',
+            'Insert meeting booking link',
             '{meeting_link}',
             '{{meeting_link}}',
             '[schedule link]',
             '{schedule_link}',
             '[booking link]',
+            '[google meeting booking link]',
         );
 
         $replaced = str_ireplace( $placeholders, '[Schedule a meeting](' . $meeting_link . ')', $reply, $count );
