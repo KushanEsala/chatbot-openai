@@ -35,16 +35,25 @@ class ChatBot_Plugin_Updater {
         $current_version = isset( $transient->checked[ self::$plugin_file ] ) ? $transient->checked[ self::$plugin_file ] : '0';
         $remote_version = self::get_latest_version();
 
-        if ( $remote_version && version_compare( $remote_version, $current_version, '>' ) ) {
-            $plugin_data = array(
-                'slug'        => 'chatbot-openai',
-                'plugin'      => self::$plugin_file,
-                'new_version' => $remote_version,
-                'url'         => 'https://github.com/' . self::$repo_owner . '/' . self::$repo_name,
-                'package'     => self::get_download_url( $remote_version ),
-            );
+        // Keep a consistent plugin object in both update and no-update states so
+        // WordPress can render plugin-row controls (including auto-update UI).
+        $plugin_data = (object) array(
+            'slug'        => 'chatbot-openai',
+            'plugin'      => self::$plugin_file,
+            'new_version' => $current_version,
+            'url'         => 'https://github.com/' . self::$repo_owner . '/' . self::$repo_name,
+            'package'     => '',
+            'id'          => 'https://github.com/' . self::$repo_owner . '/' . self::$repo_name,
+        );
 
-            $transient->response[ self::$plugin_file ] = (object) $plugin_data;
+        if ( $remote_version && version_compare( $remote_version, $current_version, '>' ) ) {
+            $plugin_data->new_version = $remote_version;
+            $plugin_data->package = self::get_download_url( $remote_version );
+            $transient->response[ self::$plugin_file ] = $plugin_data;
+            unset( $transient->no_update[ self::$plugin_file ] );
+        } else {
+            $transient->no_update[ self::$plugin_file ] = $plugin_data;
+            unset( $transient->response[ self::$plugin_file ] );
         }
 
         return $transient;

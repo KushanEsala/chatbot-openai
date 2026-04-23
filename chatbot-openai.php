@@ -3,7 +3,7 @@
  * Plugin Name: OpenAI Chatbot
  * Plugin URI: https://weareteamrocket.com/
  * Description: Custom chatbot integrated with OpenAI API with custom commands
- * Version: 1.5.0
+ * Version: 1.5.1
  * Author: Kushan Esala
  * Author URI: https://kushanesala.github.io/portfolio/
  */
